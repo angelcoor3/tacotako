@@ -17,75 +17,55 @@ nav a {
   color: white;
   text-decoration: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 nav a:hover {
   color: #00ffcc;
 }
 
-/* HOME */
+/* CONTENIDO */
 #app {
   padding: 20px;
   text-align: center;
 }
 
+/* LOGO */
 #logo {
-  width: 120px;
-}
-
-.abierto { color: #00ff88; }
-.cerrado { color: #ff4444; }
-
-/* CARDS */
-.card {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 10px;
-  margin: 10px;
-  min-width: 200px;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-/* CARRUSEL */
-.carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-}
-
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  background: rgba(0,0,0,0.9);
-  width: 100%;
-  height: 100%;
-  top: 0;
-}
-
-.modal img {
-  display: block;
-  margin: 5% auto;
+  width: 250px;
   max-width: 90%;
+  margin-bottom: 20px;
 }
 
-.cerrar {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 40px;
-  cursor: pointer;
+/* ESTADO */
+.abierto {
+  color: #00ff88;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.cerrado {
+  color: #ff4444;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* HORARIO */
+#horario {
+  color: #ccc;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
 }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-  .carousel {
-    flex-direction: column;
+  #logo {
+    width: 180px;
   }
 }
