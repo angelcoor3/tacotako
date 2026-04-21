@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background: #111;
   color: white;
+  text-align: center;
 }
 
 nav {
@@ -12,9 +13,9 @@ nav {
 
 nav a {
   color: white;
-  margin-right: 15px;
-  text-decoration: none;
+  margin: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 nav a:hover {
@@ -22,5 +23,20 @@ nav a:hover {
 }
 
 #app {
-  padding: 20px;
+  padding: 30px;
+}
+
+#logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.abierto {
+  color: lime;
+  font-size: 28px;
+}
+
+.cerrado {
+  color: red;
+  font-size: 28px;
 }

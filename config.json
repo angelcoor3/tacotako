@@ -1,0 +1,8 @@
+{
+  "horario": {
+    "apertura": "19:30",
+    "cierre": "23:00"
+  },
+  "texto": "Todos los días 7:30 PM - 11:00 PM",
+  "logo": "/logo.png"
+}
