@@ -1,14 +1,28 @@
+function cargarComponente(id, ruta) {
+  fetch(ruta)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById(id).innerHTML = html;
+    });
+}
+
+function cargarVista(nombre) {
+  fetch(`/views/${nombre}.html`)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("app").innerHTML = html;
+
+      if (nombre === "home") cargarConfig();
+    });
+}
+
 function cargarConfig() {
   fetch("/config.json")
     .then(res => res.json())
     .then(data => {
 
       const ahora = new Date();
-      const horaActual = ahora.getHours();
-      const minutosActual = ahora.getMinutes();
-
-      // convertir todo a minutos
-      const ahoraMin = horaActual * 60 + minutosActual;
+      const ahoraMin = ahora.getHours() * 60 + ahora.getMinutes();
 
       const [hA, mA] = data.horario.apertura.split(":").map(Number);
       const [hC, mC] = data.horario.cierre.split(":").map(Number);
@@ -26,10 +40,23 @@ function cargarConfig() {
         estadoEl.className = "cerrado";
       }
 
-      // horario
       document.getElementById("horario").innerText = data.texto;
-
-      // logo
       document.getElementById("logo").src = data.logo;
     });
 }
+
+// modal
+function abrirModal(src) {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("modal-img").src = src;
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+window.onload = () => {
+  cargarComponente("nav", "/components/navbar.html");
+  cargarComponente("footer", "/components/footer.html");
+  cargarVista("home");
+};

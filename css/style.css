@@ -1,42 +1,91 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #111;
+  background: #0f0f0f;
   color: white;
+}
+
+/* NAV */
+nav {
+  background: #111;
+  padding: 15px;
   text-align: center;
 }
 
-nav {
-  background: #222;
-  padding: 10px;
-}
-
 nav a {
-  color: white;
   margin: 10px;
-  cursor: pointer;
+  color: white;
   text-decoration: none;
+  cursor: pointer;
 }
 
 nav a:hover {
   color: #00ffcc;
 }
 
+/* HOME */
 #app {
-  padding: 30px;
+  padding: 20px;
+  text-align: center;
 }
 
 #logo {
-  width: 150px;
-  margin-bottom: 20px;
+  width: 120px;
 }
 
-.abierto {
-  color: lime;
-  font-size: 28px;
+.abierto { color: #00ff88; }
+.cerrado { color: #ff4444; }
+
+/* CARDS */
+.card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px;
+  min-width: 200px;
 }
 
-.cerrado {
-  color: red;
-  font-size: 28px;
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* CARRUSEL */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  background: rgba(0,0,0,0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.modal img {
+  display: block;
+  margin: 5% auto;
+  max-width: 90%;
+}
+
+.cerrar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .carousel {
+    flex-direction: column;
+  }
 }
