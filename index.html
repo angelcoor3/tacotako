@@ -13,6 +13,7 @@ body {
   color: white;
 }
 
+/* NAV */
 nav {
   background: #111;
   padding: 15px;
@@ -53,22 +54,30 @@ button:hover {
   margin: 15px 0;
 }
 
+/* 🔥 CARRUSEL CENTRADO PERFECTO */
 .carousel {
   display: flex;
   overflow-x: auto;
   gap: 15px;
   padding: 20px;
-  justify-content: center;
   scroll-snap-type: x mandatory;
 }
 
+.carousel::before,
+.carousel::after {
+  content: "";
+  flex: 1;
+}
+
 .card {
+  flex: 0 0 auto;
   min-width: 200px;
   max-width: 200px;
   background: #1a1a1a;
   border-radius: 12px;
   padding: 10px;
   scroll-snap-align: center;
+
   opacity: 0;
   transform: translateY(20px);
   transition: 0.4s ease;
@@ -94,6 +103,11 @@ button:hover {
   font-weight: bold;
 }
 
+h3 {
+  margin-top: 30px;
+}
+
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -118,6 +132,7 @@ button:hover {
   cursor: pointer;
 }
 
+/* BOTONES */
 .btn-float {
   position: fixed;
   right: 20px;
@@ -130,7 +145,6 @@ button:hover {
   font-size: 25px;
   color: white;
   text-decoration: none;
-  z-index: 999;
 }
 
 .whatsapp { bottom: 20px; background: #25D366; }
@@ -152,7 +166,9 @@ button:hover {
 
 <img id="logo" src="logo.png">
 <h1>TacosO'TAKOS</h1>
+
 <div id="estado" class="estado"></div>
+
 <p>Jueves a Sábado 7:30 PM - 11:00 PM</p>
 
 <div style="margin-top:30px;">
@@ -170,10 +186,10 @@ width="100%" height="300" style="border-radius:10px;"></iframe>
 
 <h3>Tacos</h3>
 <div class="carousel">
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Carnitas','Carne jugosa de cerdo','$25')"><p>Carnitas</p><p class="precio">$25</p></div>
+  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Carnitas','Carne jugosa','$25')"><p>Carnitas</p><p class="precio">$25</p></div>
   <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Buche','Carne suave','$25')"><p>Buche</p><p class="precio">$25</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Cuero','Crujiente y delicioso','$25')"><p>Cuero</p><p class="precio">$25</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Tripa','Tripa dorada','$25')"><p>Tripa</p><p class="precio">$25</p></div>
+  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Cuero','Crujiente','$25')"><p>Cuero</p><p class="precio">$25</p></div>
+  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src,'Taco Tripa','Doradita','$25')"><p>Tripa</p><p class="precio">$25</p></div>
 </div>
 
 <h3>Tortas</h3>
