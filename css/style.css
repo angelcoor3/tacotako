@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
+
+nav {
+  background: #222;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #00ffcc;
+}
+
+#app {
+  padding: 20px;
+}
