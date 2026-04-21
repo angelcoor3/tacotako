@@ -1,23 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TacosOTAKOS</title>
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TacosO'TAKOS</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+  text-align: center;
+}
+
+/* NAV */
+nav {
+  background: #111;
+  padding: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: #00ccaa;
+}
+
+/* LOGO */
+#logo {
+  width: 250px;
+  margin-top: 20px;
+}
+
+/* ESTADO */
+.estado {
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+/* CARRUSEL */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px;
+}
+
+.card {
+  min-width: 200px;
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* OCULTAR */
+.hidden {
+  display: none;
+}
+</style>
+
 </head>
 <body>
 
-<div id="nav"></div>
-<div id="app"></div>
-<div id="footer"></div>
+<nav>
+  <button onclick="mostrarMenu()">Ver Menú</button>
+  <button onclick="mostrarInicio()">Inicio</button>
+</nav>
 
-<!-- Modal -->
-<div id="modal" class="modal">
-  <span onclick="cerrarModal()" class="cerrar">&times;</span>
-  <img id="modal-img">
+<!-- INICIO -->
+<div id="inicio">
+
+<img id="logo" src="logo.png">
+
+<h1>TacosO'TAKOS</h1>
+
+<div id="estado" class="estado"></div>
+
+<p>Jueves a Sábado 7:30 PM - 11:00 PM</p>
+
 </div>
 
-<script src="js/app.js"></script>
+<!-- MENU -->
+<div id="menu" class="hidden">
+
+<h2>Menú</h2>
+
+<h3>Tacos</h3>
+<div class="carousel">
+  <div class="card">Carnitas</div>
+  <div class="card">Buche</div>
+  <div class="card">Cuero</div>
+  <div class="card">Tripa</div>
+</div>
+
+<h3>Tortas</h3>
+<div class="carousel">
+  <div class="card">Carnitas</div>
+  <div class="card">Buche</div>
+  <div class="card">Cuero</div>
+  <div class="card">Tripa</div>
+</div>
+
+<h3>Gringas</h3>
+<div class="carousel">
+  <div class="card">Chica - Carnitas</div>
+  <div class="card">Grande - Carnitas</div>
+  <div class="card">Chica - Buche</div>
+  <div class="card">Grande - Buche</div>
+</div>
+
+<h3>Promoción</h3>
+<div class="carousel">
+  <div class="card">10 x $100 Pastor</div>
+</div>
+
+</div>
+
+<script>
+
+// navegación
+function mostrarMenu() {
+  document.getElementById("inicio").classList.add("hidden");
+  document.getElementById("menu").classList.remove("hidden");
+}
+
+function mostrarInicio() {
+  document.getElementById("menu").classList.add("hidden");
+  document.getElementById("inicio").classList.remove("hidden");
+}
+
+// estado automático
+function actualizarEstado() {
+
+  const ahora = new Date();
+
+  const dia = ahora.getDay(); // 0 domingo
+  const hora = ahora.getHours();
+  const minutos = ahora.getMinutes();
+
+  const minutosActual = hora * 60 + minutos;
+
+  const apertura = 19 * 60 + 30; // 7:30 PM
+  const cierre = 23 * 60; // 11:00 PM
+
+  const diasValidos = [4,5,6]; // jueves, viernes, sábado
+
+  const estadoEl = document.getElementById("estado");
+
+  if (diasValidos.includes(dia) &&
+      minutosActual >= apertura &&
+      minutosActual < cierre) {
+
+    estadoEl.innerHTML = "🟢 ABIERTO";
+    estadoEl.style.color = "#00ff88";
+
+  } else {
+
+    estadoEl.innerHTML = "🔴 CERRADO";
+    estadoEl.style.color = "#ff4444";
+
+  }
+}
+
+// iniciar
+actualizarEstado();
+
+</script>
+
 </body>
 </html>
