@@ -11,16 +11,19 @@ body {
   font-family: Arial, sans-serif;
   background: #0f0f0f;
   color: white;
-  text-align: center;
 }
 
 /* NAV */
 nav {
   background: #111;
   padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
 }
 
 button {
+  margin: 5px;
   padding: 10px 20px;
   border: none;
   background: #00ffcc;
@@ -28,40 +31,101 @@ button {
   font-weight: bold;
   cursor: pointer;
   border-radius: 8px;
+  transition: 0.3s;
 }
 
 button:hover {
   background: #00ccaa;
+  transform: scale(1.05);
 }
 
 /* LOGO */
 #logo {
-  width: 250px;
+  width: 220px;
   margin-top: 20px;
 }
 
 /* ESTADO */
 .estado {
   font-size: 28px;
-  margin: 20px 0;
+  margin: 15px 0;
+}
+
+/* CONTENEDOR */
+.container {
+  padding: 20px;
+  text-align: center;
 }
 
 /* CARRUSEL */
 .carousel {
   display: flex;
   overflow-x: auto;
-  gap: 10px;
+  gap: 15px;
   padding: 10px;
+  scroll-snap-type: x mandatory;
 }
 
 .card {
   min-width: 200px;
   background: #1a1a1a;
+  border-radius: 12px;
   padding: 10px;
-  border-radius: 10px;
+  transition: 0.3s;
+  scroll-snap-align: start;
 }
 
-/* OCULTAR */
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card p {
+  margin-top: 8px;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  background: rgba(0,0,0,0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal img {
+  display: block;
+  margin: 5% auto;
+  max-width: 90%;
+}
+
+.cerrar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+/* ANIMACIONES */
+.fade {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* OCULTO */
 .hidden {
   display: none;
 }
@@ -71,12 +135,12 @@ button:hover {
 <body>
 
 <nav>
-  <button onclick="mostrarMenu()">Ver Menú</button>
   <button onclick="mostrarInicio()">Inicio</button>
+  <button onclick="mostrarMenu()">Menú</button>
 </nav>
 
 <!-- INICIO -->
-<div id="inicio">
+<div id="inicio" class="container fade">
 
 <img id="logo" src="logo.png">
 
@@ -89,39 +153,68 @@ button:hover {
 </div>
 
 <!-- MENU -->
-<div id="menu" class="hidden">
+<div id="menu" class="container hidden">
 
 <h2>Menú</h2>
 
 <h3>Tacos</h3>
 <div class="carousel">
-  <div class="card">Carnitas</div>
-  <div class="card">Buche</div>
-  <div class="card">Cuero</div>
-  <div class="card">Tripa</div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Carnitas</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Buche</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Cuero</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Tripa</p>
+  </div>
 </div>
 
 <h3>Tortas</h3>
 <div class="carousel">
-  <div class="card">Carnitas</div>
-  <div class="card">Buche</div>
-  <div class="card">Cuero</div>
-  <div class="card">Tripa</div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Carnitas</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Buche</p>
+  </div>
 </div>
 
 <h3>Gringas</h3>
 <div class="carousel">
-  <div class="card">Chica - Carnitas</div>
-  <div class="card">Grande - Carnitas</div>
-  <div class="card">Chica - Buche</div>
-  <div class="card">Grande - Buche</div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Chica</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>Grande</p>
+  </div>
 </div>
 
 <h3>Promoción</h3>
 <div class="carousel">
-  <div class="card">10 x $100 Pastor</div>
+  <div class="card">
+    <img src="https://via.placeholder.com/300" onclick="abrirModal(this.src)">
+    <p>10 x $100 Pastor</p>
+  </div>
 </div>
 
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="cerrarModal()">
+  <span class="cerrar">&times;</span>
+  <img id="modal-img">
 </div>
 
 <script>
@@ -137,40 +230,40 @@ function mostrarInicio() {
   document.getElementById("inicio").classList.remove("hidden");
 }
 
+// modal
+function abrirModal(src) {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("modal-img").src = src;
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
 // estado automático
 function actualizarEstado() {
 
   const ahora = new Date();
+  const dia = ahora.getDay();
 
-  const dia = ahora.getDay(); // 0 domingo
-  const hora = ahora.getHours();
-  const minutos = ahora.getMinutes();
+  const minutos = ahora.getHours() * 60 + ahora.getMinutes();
 
-  const minutosActual = hora * 60 + minutos;
+  const apertura = 19 * 60 + 30;
+  const cierre = 23 * 60;
 
-  const apertura = 19 * 60 + 30; // 7:30 PM
-  const cierre = 23 * 60; // 11:00 PM
-
-  const diasValidos = [4,5,6]; // jueves, viernes, sábado
+  const dias = [4,5,6]; // jueves viernes sábado
 
   const estadoEl = document.getElementById("estado");
 
-  if (diasValidos.includes(dia) &&
-      minutosActual >= apertura &&
-      minutosActual < cierre) {
-
+  if (dias.includes(dia) && minutos >= apertura && minutos < cierre) {
     estadoEl.innerHTML = "🟢 ABIERTO";
     estadoEl.style.color = "#00ff88";
-
   } else {
-
     estadoEl.innerHTML = "🔴 CERRADO";
     estadoEl.style.color = "#ff4444";
-
   }
 }
 
-// iniciar
 actualizarEstado();
 
 </script>
