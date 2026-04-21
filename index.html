@@ -1,311 +1,341 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TacosO'TAKOS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TacosO'TAKOS</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f0f0f;
-  color: white;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+        }
 
-/* NAV */
-nav {
-  background: #111;
-  padding: 15px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-}
+        /* NAV */
+        nav {
+            background: #111;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+        }
 
-button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background: #00ffcc;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: 0.3s;
-}
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background: #00ffcc;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
 
-button:hover {
-  background: #00ccaa;
-  transform: scale(1.05);
-}
+        button:hover {
+            background: #00ccaa;
+            transform: scale(1.05);
+        }
 
-/* CONTENEDOR */
-.container {
-  padding: 20px;
-  text-align: center;
-}
+        /* CONTENEDOR */
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
 
-/* LOGO */
-#logo {
-  width: 220px;
-  margin-top: 20px;
-}
+        /* LOGO */
+        #logo {
+            width: 220px;
+            margin-top: 20px;
+        }
 
-/* ESTADO */
-.estado {
-  font-size: 28px;
-  margin: 15px 0;
-}
+        /* ESTADO */
+        .estado {
+            font-size: 28px;
+            margin: 15px 0;
+        }
 
-/* CARRUSEL CENTRADO */
-.carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: 15px;
-  padding: 20px;
-  justify-content: center;
-  scroll-snap-type: x mandatory;
-}
+        /* CARRUSEL */
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 20px;
+            justify-content: center;
+            scroll-snap-type: x mandatory;
+        }
 
-.card {
-  min-width: 200px;
-  max-width: 200px;
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 10px;
-  transition: 0.3s;
-  scroll-snap-align: center;
-}
+        /* CARD */
+        .card {
+            min-width: 200px;
+            max-width: 200px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 10px;
+            scroll-snap-align: center;
 
-.card:hover {
-  transform: scale(1.05);
-}
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-.card img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-}
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.card p {
-  margin-top: 8px;
-}
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 10px 20px rgba(0, 255, 200, 0.2);
+        }
 
-/* TITULOS */
-h3 {
-  text-align: center;
-  margin-top: 30px;
-}
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 100;
-  background: rgba(0,0,0,0.9);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
+        .card p {
+            margin: 5px 0;
+        }
 
-.modal img {
-  display: block;
-  margin: 5% auto;
-  max-width: 90%;
-}
+        /* PRECIO */
+        .precio {
+            color: #00ffcc;
+            font-weight: bold;
+        }
 
-.cerrar {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 40px;
-  cursor: pointer;
-}
+        /* TITULOS */
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-/* BOTONES FLOTANTES */
-.btn-float {
-  position: fixed;
-  right: 20px;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
-  color: white;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  z-index: 999;
-  transition: 0.3s;
-}
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            width: 100%;
+            height: 100%;
+            top: 0;
+        }
 
-.btn-float:hover {
-  transform: scale(1.1);
-}
+        .modal img {
+            display: block;
+            margin: 5% auto;
+            max-width: 90%;
+        }
 
-.whatsapp {
-  bottom: 20px;
-  background: #25D366;
-}
+        .cerrar {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            cursor: pointer;
+        }
 
-.telefono {
-  bottom: 90px;
-  background: #007bff;
-}
+        /* BOTONES */
+        .btn-float {
+            position: fixed;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            color: white;
+            text-decoration: none;
+            z-index: 999;
+            transition: 0.3s;
+        }
 
-/* ANIMACION */
-.fade {
-  animation: fadeIn 0.5s ease;
-}
+        .whatsapp {
+            bottom: 20px;
+            background: #25D366;
+        }
 
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
+        .telefono {
+            bottom: 90px;
+            background: #007bff;
+        }
 
-/* OCULTO */
-.hidden {
-  display: none;
-}
-</style>
+        .btn-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* OCULTO */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 
-<nav>
-  <button onclick="mostrarInicio()">Inicio</button>
-  <button onclick="mostrarMenu()">Menú</button>
-</nav>
+    <nav>
+        <button onclick="mostrarInicio()">Inicio</button>
+        <button onclick="mostrarMenu()">Menú</button>
+    </nav>
 
-<!-- INICIO -->
-<div id="inicio" class="container fade">
+    <!-- INICIO -->
+    <div id="inicio" class="container">
 
-<img id="logo" src="logo.png">
+        <img id="logo" src="logo.png">
+        <h1>TacosO'TAKOS</h1>
 
-<h1>TacosO'TAKOS</h1>
+        <div id="estado" class="estado"></div>
 
-<div id="estado" class="estado"></div>
+        <p>Jueves a Sábado 7:30 PM - 11:00 PM</p>
 
-<p>Jueves a Sábado 7:30 PM - 11:00 PM</p>
+        <div style="margin-top:30px;">
+            <h2>Ubicación</h2>
+            <iframe src="https://www.google.com/maps?q=Nogales,Sonora&output=embed" width="100%" height="300"
+                style="border:0; border-radius:10px;"></iframe>
+        </div>
 
-</div>
+    </div>
 
-<!-- MENU -->
-<div id="menu" class="container hidden">
+    <!-- MENU -->
+    <div id="menu" class="container hidden">
 
-<h2>Menú</h2>
+        <h2>Menú</h2>
 
-<h3>Tacos</h3>
-<div class="carousel">
-  <div class="card">
-    <img src="imagen.png" onclick="abrirModal(this.src)">
-    <p>Carnitas</p>
-  </div>
-  <div class="card">
-    <img src="imagen.png" onclick="abrirModal(this.src)">
-    <p>Buche</p>
-  </div>
-  <div class="card">
-    <img src="imagen.png" onclick="abrirModal(this.src)">
-    <p>Cuero</p>
-  </div>
-  <div class="card">
-    <img src="imagen.png" onclick="abrirModal(this.src)">
-    <p>Tripa</p>
-  </div>
-</div>
+        <h3>Tacos</h3>
+        <div class="carousel">
+            <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)">
+                <p>Carnitas</p>
+                <p class="precio">$25</p>
+            </div>
+            <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)">
+                <p>Buche</p>
+                <p class="precio">$25</p>
+            </div>
+            <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)">
+                <p>Cuero</p>
+                <p class="precio">$25</p>
+            </div>
+            <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)">
+                <p>Tripa</p>
+                <p class="precio">$25</p>
+            </div>
+        </div>
 
-<h3>Tortas</h3>
-<div class="carousel">
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Carnitas</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Buche</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Cuero</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Tripa</p></div>
-</div>
+        <h3>Tortas</h3>
+        <div class="carousel">
+            <div class="card"><img src="imagen.png">
+                <p>Carnitas</p>
+                <p class="precio">$60</p>
+            </div>
+            <div class="card"><img src="imagen.png">
+                <p>Buche</p>
+                <p class="precio">$60</p>
+            </div>
+            <div class="card"><img src="imagen.png">
+                <p>Cuerito</p>
+                <p class="precio">$60</p>
+            </div>
+            <div class="card"><img src="imagen.png">
+                <p>Tripas</p>
+                <p class="precio">$60</p>
+            </div>
+        </div>
 
-<h3>Gringas</h3>
-<div class="carousel">
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Chica</p></div>
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>Grande</p></div>
-</div>
+        <h3>Gringas</h3>
+        <div class="carousel">
+            <div class="card"><img src="imagen.png">
+                <p>Chica</p>
+                <p class="precio">$40</p>
+            </div>
+            <div class="card"><img src="imagen.png">
+                <p>Grande</p>
+                <p class="precio">$70</p>
+            </div>
+        </div>
 
-<h3>Promoción</h3>
-<div class="carousel">
-  <div class="card"><img src="imagen.png" onclick="abrirModal(this.src)"><p>10 x $100 Pastor</p></div>
-</div>
+        <h3>Promoción</h3>
+        <div class="carousel">
+            <div class="card"><img src="imagen.png">
+                <p>10 x $100 Pastor</p>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-<!-- MAPA -->
-<div class="container">
-<h2>Ubicación</h2>
-<iframe src="https://www.google.com/maps?q=Nogales,Sonora&output=embed"
-width="100%" height="300"
-style="border:0; border-radius:10px;">
-</iframe>
-</div>
+    <!-- MODAL -->
+    <div id="modal" class="modal" onclick="cerrarModal()">
+        <span class="cerrar">&times;</span>
+        <img id="modal-img">
+    </div>
 
-<!-- MODAL -->
-<div id="modal" class="modal" onclick="cerrarModal()">
-  <span class="cerrar">&times;</span>
-  <img id="modal-img">
-</div>
+    <a href="tel:6311234567" class="btn-float telefono">📞</a>
+    <a href="https://wa.me/526311234567" class="btn-float whatsapp">💬</a>
 
-<!-- BOTONES -->
-<a href="tel:6311234567" class="btn-float telefono">📞</a>
-<a href="https://wa.me/526311234567" target="_blank" class="btn-float whatsapp">💬</a>
+    <script>
 
-<script>
+        // navegación
+        function mostrarMenu() {
+            document.getElementById("inicio").classList.add("hidden");
+            document.getElementById("menu").classList.remove("hidden");
+            animarCards();
+        }
 
-// navegación
-function mostrarMenu() {
-  document.getElementById("inicio").classList.add("hidden");
-  document.getElementById("menu").classList.remove("hidden");
-}
+        function mostrarInicio() {
+            document.getElementById("menu").classList.add("hidden");
+            document.getElementById("inicio").classList.remove("hidden");
+        }
 
-function mostrarInicio() {
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("inicio").classList.remove("hidden");
-}
+        // modal
+        function abrirModal(src) {
+            document.getElementById("modal").style.display = "block";
+            document.getElementById("modal-img").src = src;
+        }
 
-// modal
-function abrirModal(src) {
-  document.getElementById("modal").style.display = "block";
-  document.getElementById("modal-img").src = src;
-}
+        function cerrarModal() {
+            document.getElementById("modal").style.display = "none";
+        }
 
-function cerrarModal() {
-  document.getElementById("modal").style.display = "none";
-}
+        // estado
+        function actualizarEstado() {
+            const ahora = new Date();
+            const dia = ahora.getDay();
+            const minutos = ahora.getHours() * 60 + ahora.getMinutes();
 
-// estado automático
-function actualizarEstado() {
+            const apertura = 19 * 60 + 30;
+            const cierre = 23 * 60;
+            const dias = [4, 5, 6];
 
-  const ahora = new Date();
-  const dia = ahora.getDay();
-  const minutos = ahora.getHours()*60 + ahora.getMinutes();
+            const estadoEl = document.getElementById("estado");
 
-  const apertura = 19*60 + 30;
-  const cierre = 23*60;
+            if (dias.includes(dia) && minutos >= apertura && minutos < cierre) {
+                estadoEl.innerHTML = "🟢 ABIERTO";
+                estadoEl.style.color = "#00ff88";
+            } else {
+                estadoEl.innerHTML = "🔴 CERRADO";
+                estadoEl.style.color = "#ff4444";
+            }
+        }
 
-  const dias = [4,5,6];
+        // animación cards
+        function animarCards() {
+            const cards = document.querySelectorAll(".card");
+            cards.forEach((card, i) => {
+                setTimeout(() => {
+                    card.classList.add("visible");
+                }, i * 100);
+            });
+        }
 
-  const estadoEl = document.getElementById("estado");
+        actualizarEstado();
 
-  if (dias.includes(dia) && minutos >= apertura && minutos < cierre) {
-    estadoEl.innerHTML = "🟢 ABIERTO";
-    estadoEl.style.color = "#00ff88";
-  } else {
-    estadoEl.innerHTML = "🔴 CERRADO";
-    estadoEl.style.color = "#ff4444";
-  }
-}
-
-actualizarEstado();
-
-</script>
+    </script>
 
 </body>
+
 </html>
