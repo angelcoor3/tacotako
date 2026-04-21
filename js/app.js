@@ -7,7 +7,7 @@ function cargarComponente(id, ruta) {
 }
 
 function cargarVista(nombre) {
-  fetch(`/views/${nombre}.html`)
+  fetch(`views/${nombre}.html`)
     .then(res => res.text())
     .then(html => {
       document.getElementById("app").innerHTML = html;
@@ -17,7 +17,7 @@ function cargarVista(nombre) {
 }
 
 function cargarConfig() {
-  fetch("/config.json")
+  fetch("config.json")
     .then(res => res.json())
     .then(data => {
 
