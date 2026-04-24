@@ -1,109 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TacoO'TAKOS | Tacos con barrio</title>
-    <meta name="theme-color" content="#111111">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Taquería Moroni Premium</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#121212;color:#fff}header{position:sticky;top:0;background:#1e1e1e;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.4);z-index:10}.brand{font-size:1.3rem;font-weight:700;color:#ff9800}nav button{margin-left:8px}button{background:#ff9800;border:none;color:#111;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;transition:.25s}button:hover{transform:translateY(-2px);background:#ffb74d}.view{display:none;padding:18px;max-width:1100px;margin:auto}.active{display:block;animation:fade .5s ease}.hero{background:linear-gradient(135deg,#ff5722,#ff9800);padding:30px;border-radius:20px;text-align:center;margin-bottom:20px}.hero h1{font-size:2rem}.status{margin-top:10px;font-size:1.2rem;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.card{background:#1e1e1e;border-radius:18px;overflow:hidden;box-shadow:0 8px 18px rgba(0,0,0,.35)}.img{height:150px;background:linear-gradient(135deg,#333,#555);display:flex;align-items:center;justify-content:center}.card h3,.card p{padding:0 14px 10px}.tag{padding:0 14px 14px;font-weight:700}.ok{color:#4caf50}.bad{color:#f44336}input,select{width:100%;padding:10px;margin:6px 0 12px;border-radius:10px;border:none}.panel{background:#1e1e1e;padding:18px;border-radius:18px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:700px){.row{grid-template-columns:1fr}header{flex-direction:column;gap:10px}}@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+</style>
 </head>
-
 <body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark fixed-top nav-pro">
-        <div class="container-fluid px-3">
-
-            <a href="#" class="navbar-brand fw-bold m-0 brand-logo">
-                🌮 TacoO'TAKOS
-            </a>
-
-            <a href="menu.html" class="btn btn-sm btn-warning fw-bold px-3">
-                Menú
-            </a>
-
-        </div>
-    </nav>
-
-    <!-- HERO -->
-    <section class="hero-mobile">
-
-        <div class="hero-overlay"></div>
-
-        <div class="container hero-content text-center">
-
-            <div class="badge-open" id="estadoBox">
-                🔥 ABIERTO
-            </div>
-
-            <h1 class="main-title mt-4">
-                TacoO'TAKOS
-            </h1>
-
-            <p class="hero-text mt-3">
-                Tacos callejeros con sabor pasado de lanza.
-                Hechos al momento, servidos calientes.
-            </p>
-
-            <div class="hero-actions mt-4">
-
-                <a href="https://wa.me/526311234567" class="btn btn-success btn-lg w-100 mb-3">
-                    💬 Pedir por WhatsApp
-                </a>
-
-                <a href="tel:+526311234567" class="btn btn-outline-light btn-lg w-100 mb-3">
-                    📞 Llamar Ahora
-                </a>
-
-                <a href="menu.html" class="btn btn-warning btn-lg w-100 fw-bold">
-                    🌮 Ver Menú
-                </a>
-
-            </div>
-
-            <div class="info-box mt-4">
-
-                <div>📍 Nogales, Sonora</div>
-                <div>🕢 Jueves a Sábado</div>
-                <div>7:30 PM - 11:00 PM</div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PROMO -->
-    <section class="promo-section">
-
-        <div class="container">
-
-            <div class="promo-card">
-
-                <div class="promo-small">PROMOCIÓN</div>
-
-                <div class="promo-big">
-                    10 TACOS AL PASTOR
-                </div>
-
-                <div class="promo-price">
-                    $100
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer-pro text-center">
-        TacoO'TAKOS © 2026
-    </footer>
-
-    <script src="app.js"></script>
+<header>
+<div class='brand'>🌮 Taquería Moroni</div>
+<nav>
+<button onclick="showView('inicio')">Inicio</button>
+<button onclick="showView('menu')">Menú</button>
+<button onclick="loginAdmin()">Admin</button>
+</nav>
+</header>
+<section id='inicio' class='view active'>
+<div class='hero'>
+<h1>Los mejores tacos de la zona</h1>
+<p>Horario: 7:00 PM - 2:00 AM</p>
+<p>Contacto: 000-000-0000</p>
+<div class='status' id='negocioEstado'></div>
+</div>
+</section>
+<section id='menu' class='view'>
+<h2 style='margin-bottom:15px'>Nuestro Menú</h2>
+<div id='productos' class='grid'></div>
+</section>
+<section id='admin' class='view'>
+<div class='panel'>
+<h2>Panel de Administración</h2>
+<label>Estado del negocio</label>
+<select id='openSelect'><option>Abierto</option><option>Cerrado</option></select>
+<button onclick='guardarNegocio()'>Guardar</button>
+<hr style='margin:18px 0;border-color:#333'>
+<div id='adminProductos'></div>
+</div>
+</section>
+<script>
+const nombres=['Carnitas','Buche','Cuero','Tripa','Pastor'];
+let data=JSON.parse(localStorage.getItem('taqueriaData'))||{negocio:'Abierto',productos:nombres.map(n=>({nombre:n,estado:'Disponible',desc:'Tacos de '+n}))};
+function save(){localStorage.setItem('taqueriaData',JSON.stringify(data));render();}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function loginAdmin(){let p=prompt('Contraseña');if(p==='1234Moroni'){showView('admin')}else if(p!==null){alert('Incorrecta')}}
+function guardarNegocio(){data.negocio=document.getElementById('openSelect').value;save();}
+function setEstado(i,v){data.productos[i].estado=v;save();}
+function setDesc(i,v){data.productos[i].desc=v;save();}
+function render(){document.getElementById('negocioEstado').innerText='Estado: '+data.negocio;document.getElementById('openSelect').value=data.negocio;let c=document.getElementById('productos');c.innerHTML='';data.productos.forEach((p,i)=>{c.innerHTML+=`<div class='card'><div class='img'>🌮 ${p.nombre}</div><h3>${p.nombre}</h3><p>${p.desc}</p><div class='tag ${p.estado==='Disponible'?'ok':'bad'}'>${p.estado}</div></div>`});let a=document.getElementById('adminProductos');a.innerHTML='';data.productos.forEach((p,i)=>{a.innerHTML+=`<div class='card' style='padding:14px;margin-bottom:12px'><strong>${p.nombre}</strong><label>Descripción</label><input value="${p.desc}" onchange="setDesc(${i},this.value)"><label>Estado</label><select onchange="setEstado(${i},this.value)"><option ${p.estado==='Disponible'?'selected':''}>Disponible</option><option ${p.estado==='Agotado'?'selected':''}>Agotado</option></select></div>`})}
+render();
+</script>
 </body>
-
 </html>

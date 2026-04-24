@@ -1,8 +1,10 @@
-const PASSWORD = "ertup3312";
+// app.js
 
-/* ===============================
-   DATOS INICIALES
-================================= */
+const PASS = "ertup3312";
+
+/* =========================
+   BASE DE DATOS LOCAL
+========================= */
 
 const defaultData = {
 estado: "ABIERTO",
@@ -11,181 +13,195 @@ productos: [
 {
 nombre:"Tacos",
 precio:"25",
-desc:"Tortilla recién hecha con carne al gusto, cilantro y cebolla.",
-img:"https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=900&q=80"
+desc:"Tortilla recién hecha con carne al gusto.",
+img:"logo.png"
 },
 {
 nombre:"Torta",
 precio:"70",
-desc:"Pan dorado relleno de carne jugosa y verduras frescas.",
-img:"https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=80"
+desc:"Pan dorado con carne jugosa y verduras.",
+img:"logo.png"
 },
 {
 nombre:"Gringa Chica",
 precio:"65",
-desc:"Tortilla de harina con queso fundido y carne al gusto.",
-img:"https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=80"
+desc:"Queso fundido con tortilla de harina.",
+img:"logo.png"
 },
 {
 nombre:"Gringa Grande",
 precio:"95",
-desc:"Extra queso, extra carne, extra sabor.",
-img:"https://images.unsplash.com/photo-1565299585323-38174c4a6d27?auto=format&fit=crop&w=900&q=80"
+desc:"Más carne, más queso, más sabor.",
+img:"logo.png"
 },
 {
 nombre:"Promo Pastor 10x100",
 precio:"100",
-desc:"10 tacos al pastor para caerle con todo.",
-img:"https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=900&q=80"
+desc:"Promoción especial para caerle con todo.",
+img:"logo.png"
 },
 {
-nombre:"Orden Cebollitas",
+nombre:"Orden de Cebollitas",
 precio:"45",
-desc:"Cebollitas asadas con limón y salsa.",
-img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80"
+desc:"Cebollitas asadas con limón.",
+img:"logo.png"
 }
 ]
 };
 
-if(!localStorage.getItem("tacoData")){
-localStorage.setItem("tacoData", JSON.stringify(defaultData));
+if(!localStorage.getItem("tacoDB")){
+localStorage.setItem("tacoDB", JSON.stringify(defaultData));
 }
 
-function getData(){
-return JSON.parse(localStorage.getItem("tacoData"));
+function getDB(){
+return JSON.parse(localStorage.getItem("tacoDB"));
 }
 
-function saveData(data){
-localStorage.setItem("tacoData", JSON.stringify(data));
+function saveDB(data){
+localStorage.setItem("tacoDB", JSON.stringify(data));
 }
 
-/* ===============================
+/* =========================
    HOME
-================================= */
+========================= */
 
 function loadHome(){
 
-const box = document.getElementById("estadoBox");
-if(!box) return;
+const estado = document.getElementById("estado");
+if(!estado) return;
 
-const data = getData();
+const db = getDB();
 
-if(data.estado === "ABIERTO"){
-box.innerHTML = "🔥 ABIERTO";
-box.className = "badge-open";
+estado.textContent = db.estado;
+
+if(db.estado === "ABIERTO"){
+estado.className = "badge open";
 }else{
-box.innerHTML = "⛔ CERRADO";
-box.className = "badge-open badge-close";
+estado.className = "badge closed";
 }
 
 }
 
-/* ===============================
+/* =========================
    MENU
-================================= */
+========================= */
 
 function loadMenu(){
 
-const wrap = document.getElementById("productosBox");
-if(!wrap) return;
+const box = document.getElementById("productos");
+if(!box) return;
 
-const data = getData();
+const db = getDB();
 
-document.getElementById("carnesBox").innerText =
-data.carnes.join(" • ");
+const carnes = document.getElementById("carnes");
+if(carnes){
+carnes.textContent = db.carnes.join(" • ");
+}
 
 let html = "";
 
-data.productos.forEach((p,i)=>{
+db.productos.forEach((p,i)=>{
 
 html += `
-<div class="col-12 col-md-6 col-lg-4">
+<div class="card">
 
-<div class="product-card">
+<img src="${p.img}" onclick="abrirModal('${p.img}')">
 
-<img 
-src="${p.img}" 
-class="product-img"
-onclick="showImg('${p.img}')"
-data-bs-toggle="modal"
-data-bs-target="#imgModal">
+<div class="card-body">
 
-<div class="product-body">
+<h3>${p.nombre}</h3>
 
-<div class="product-name">${p.nombre}</div>
+<div class="price">$${p.precio}</div>
 
-<div class="product-price">$${p.precio}</div>
+<div class="desc">${p.desc}</div>
 
-<div class="product-desc">${p.desc}</div>
-
-</div>
 </div>
 </div>
 `;
 
 });
 
-wrap.innerHTML = html;
+box.innerHTML = html;
 
 }
 
-function showImg(src){
-document.getElementById("modalImg").src = src;
+/* =========================
+   MODAL
+========================= */
+
+function abrirModal(src){
+
+const modal = document.getElementById("modal");
+const img = document.getElementById("modalImg");
+
+if(modal && img){
+img.src = src;
+modal.classList.add("show");
 }
 
-/* ===============================
-   LOGIN ADMIN
-================================= */
+}
 
-function loginAdmin(){
+function cerrarModal(){
 
-const pass = document.getElementById("pass").value;
+const modal = document.getElementById("modal");
 
-if(pass !== PASSWORD){
+if(modal){
+modal.classList.remove("show");
+}
+
+}
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function login(){
+
+const pass = document.getElementById("pass");
+if(!pass) return;
+
+if(pass.value !== PASS){
 alert("Contraseña incorrecta");
 return;
 }
 
-document.getElementById("loginBox").classList.add("d-none");
-document.getElementById("panelBox").classList.remove("d-none");
+document.getElementById("loginBox").classList.add("hide");
+document.getElementById("panelBox").classList.remove("hide");
 
 loadAdmin();
 
 }
 
-/* ===============================
+/* =========================
    ADMIN PANEL
-================================= */
+========================= */
 
 function loadAdmin(){
 
-const data = getData();
+const db = getDB();
 
-document.getElementById("estadoSelect").value =
-data.estado;
+const estado = document.getElementById("estadoSelect");
+if(estado){
+estado.value = db.estado;
+}
 
 const box = document.getElementById("adminProductos");
+if(!box) return;
 
 let html = "";
 
-data.productos.forEach((p,i)=>{
+db.productos.forEach((p,i)=>{
 
 html += `
-<div class="admin-card">
+<div class="panel">
 
-<h3 class="section-title">${p.nombre}</h3>
+<h2>${p.nombre}</h2>
 
-<label class="mb-2">Precio</label>
-<input 
-type="number"
-id="precio${i}"
-class="form-control admin-input mb-3"
-value="${p.precio}">
+<label>Precio</label>
+<input type="number" id="precio${i}" value="${p.precio}">
 
-<label class="mb-2">Descripción</label>
-<textarea
-id="desc${i}"
-class="form-control admin-input">${p.desc}</textarea>
+<label>Descripción</label>
+<textarea id="desc${i}">${p.desc}</textarea>
 
 </div>
 `;
@@ -196,32 +212,33 @@ box.innerHTML = html;
 
 }
 
-function guardarCambios(){
+/* =========================
+   GUARDAR
+========================= */
 
-const data = getData();
+function guardarTodo(){
 
-data.estado =
-document.getElementById("estadoSelect").value;
+const db = getDB();
 
-data.productos.forEach((p,i)=>{
+const estado = document.getElementById("estadoSelect");
+db.estado = estado.value;
 
-p.precio =
-document.getElementById("precio"+i).value;
+db.productos.forEach((p,i)=>{
 
-p.desc =
-document.getElementById("desc"+i).value;
+p.precio = document.getElementById("precio"+i).value;
+p.desc = document.getElementById("desc"+i).value;
 
 });
 
-saveData(data);
+saveDB(db);
 
-alert("✅ Cambios guardados");
+alert("Cambios guardados");
 
 }
 
-/* ===============================
-   AUTO INIT
-================================= */
+/* =========================
+   INIT
+========================= */
 
 loadHome();
 loadMenu();
